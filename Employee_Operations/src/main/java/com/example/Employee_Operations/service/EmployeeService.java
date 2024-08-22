@@ -6,6 +6,10 @@ import com.example.Employee_Operations.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,6 +56,32 @@ public class EmployeeService implements EmployeeServiceInterface {
     @Override
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public void addMultiple(String file_location) {
+        try (BufferedReader bufferedReader=new BufferedReader(new FileReader(file_location)))
+        {
+            bufferedReader.readLine();
+            String line;
+            int i;
+            while ((line = bufferedReader.readLine()) != null)
+            {
+                i=0;
+                String[] data = line.split(",");
+                Employee new_employee=new Employee();
+                new_employee.setFirst_name(data[i++]);
+                new_employee.setLast_name(data[i++]);
+                new_employee.setDepartment(data[i++]);
+                String salary=data[i++].trim();
+                Long new_salary=Long.parseLong(salary);
+                new_employee.setSalary(new_salary);
+                employeeRepository.save(new_employee);
+            }
+        }catch (IOException e)
+        {
+            System.out.println("File not found Exception");
+        }
     }
 
 }

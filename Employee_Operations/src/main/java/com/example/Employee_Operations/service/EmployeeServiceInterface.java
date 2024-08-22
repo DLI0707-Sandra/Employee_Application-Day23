@@ -10,4 +10,5 @@ public interface EmployeeServiceInterface {
     public List<Employee> getAllEmployees();
     public Employee updateEmployee(long id,Employee employee);
     public void deleteEmployee(Long id);
+    public void addMultiple(String file_location);
 }

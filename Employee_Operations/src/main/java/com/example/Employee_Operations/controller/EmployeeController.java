@@ -45,4 +45,10 @@ public class EmployeeController {
         return employeeService.updateEmployee(id,employee);
     }
 
+    @PostMapping("/addwithCSV")
+    public void addMultiple(@RequestBody String file_location)
+    {
+         employeeService.addMultiple(file_location);
+    }
+
 }
