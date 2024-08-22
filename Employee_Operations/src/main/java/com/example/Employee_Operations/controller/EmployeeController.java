@@ -2,6 +2,7 @@ package com.example.Employee_Operations.controller;
 
 import com.example.Employee_Operations.model.Employee;
 import com.example.Employee_Operations.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @PostMapping("/add")
-    public Employee addEmployee(@RequestBody Employee employee)
+    public Employee addEmployee(@Valid @RequestBody Employee employee)
     {
         return employeeService.addEmployee(employee);
     }
@@ -39,7 +40,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/update/{id}")
-    public Employee update(@PathVariable long id,@RequestBody Employee employee)
+    public Employee update(@PathVariable long id,@Valid @RequestBody Employee employee)
     {
         return employeeService.updateEmployee(id,employee);
     }

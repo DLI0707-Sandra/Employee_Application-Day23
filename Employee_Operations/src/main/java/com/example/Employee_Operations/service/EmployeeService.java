@@ -1,5 +1,6 @@
 package com.example.Employee_Operations.service;
 
+import com.example.Employee_Operations.exception.EmployeeNotFoundException;
 import com.example.Employee_Operations.model.Employee;
 import com.example.Employee_Operations.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,12 @@ public class EmployeeService implements EmployeeServiceInterface {
 
     @Override
     public Employee getEmployeeById(Long id) {
-        return employeeRepository.findById(id).orElse(null);
+        Employee employee=employeeRepository.findById(id).orElse(null);
+        if(employee==null)
+        {
+            throw new EmployeeNotFoundException("Employee not found");
+        }
+        return employee;
     }
 
     @Override
